@@ -1,19 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <p>{{ menu|join:" | " }}</p>
-    <p>{{ float|divisibleby:"2" }}</p>
-    <p>{{ lst|length }}</p>
-    <p>{{ set }}</p>
-    <p>{{ dict.key_1 }}</p>
-    <p>{{ obj.a }}</p>
-    <p>{{ "The Main Page"|slugify }}</p>
-    <p>{{ url }}</p>
-    <h1>{{ title|cut:" "|cut:"?" }}</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+    
+<h1>{{ title }}</h1>
+
+{% include "women/includes/nav.html" %} 
+
+<ul>
+    {% for post in posts %}
+    {% if post.is_published %}
+    <li>
+        <h2> {{ post.title }} </h2>
+        <p> {{post.content}} </p>
+        <p><a href="{% url 'post' post.id %}">Читать пост</a></p>
+        {% if not forloop.last %}
+        <hr>
+        {% endif %}
+    </li>
+    {% endif %}
+    {% endfor %} 
+</ul>
+
+{% include "women/includes/nav.html" %} 
+
+{% endblock %}
